@@ -26,3 +26,18 @@ proportion_survivors = number_survived / number_passengers
 print ('Number of passengers: ', number_passengers)
 print ('Number of surviviors: ', number_survived)
 print ('Proportion of survivors: ', round(proportion_survivors, 2))
+
+
+print('----------------------------------------------')
+print('Survival by sex')
+women_passengers = data[0::,4] == "female"
+men_passengers = data[0::,4] != "female"
+#data reads: from 'data' array 'women_passengers(boolean--if it is true)
+# and the column 1 -->survived or not --> transfer to flaot num 1 or 0
+# )
+women_onboard = data[women_passengers, 1].astype(np.float)
+men_onboard = data[men_passengers, 1].astype(np.float)
+proportion_women_survivors = np.sum(women_onboard)/np.size(women_onboard)
+proportion_men_survivors = np.sum(men_onboard)/np.size(men_onboard)
+print('Proportion of women who is survived :', round(proportion_women_survivors, 2))
+print('Proportion of men who is survived :', round(proportion_men_survivors, 2))
