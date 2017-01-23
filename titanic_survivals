@@ -1,0 +1,28 @@
+import csv as csv
+import numpy as np
+import matplotlib as mp
+
+#fname = input('Enter the file name: ')
+csv_file_object = csv.reader(open('train.csv'))
+header = next(csv_file_object) 
+
+data = []
+for row in csv_file_object:
+	data.append(row)
+data = np.array(data)
+#print (data[0,5].astype(np.float))
+
+
+#convert numerical data into int or float ..etc
+data[0::,2].astype(np.float)
+#data[0::,5].astype(np.float)
+
+
+print('----------------------------------------------')
+print('The overall distribution of survival')
+number_passengers = np.size(data[0::,1].astype(np.float))
+number_survived = np.sum(data[0::,1].astype(np.float))
+proportion_survivors = number_survived / number_passengers
+print ('Number of passengers: ', number_passengers)
+print ('Number of surviviors: ', number_survived)
+print ('Proportion of survivors: ', round(proportion_survivors, 2))
