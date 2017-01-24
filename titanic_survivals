@@ -72,5 +72,18 @@ print('Male child passengers survived: ', np.sum(master_passengers_onboard))
 print('Proportion of female child survivors: ',round(proportion_miss_passengers,2))
 print('Proportion of male child survivors: ',round(proportion_master_passengers,2))
 
-
+print('----------------------------------------------')
+print('Survival of adults by sex')
+lady_passengers = women_passengers & adult_passengers
+mr_passengers = men_passengers & adult_passengers
+lady_passengers_onboard = data[lady_passengers, 1].astype(np.float)
+mr_passengers_onboard = data[mr_passengers, 1].astype(np.float)
+proportion_lady_passengers = np.sum(lady_passengers_onboard)/np.size(lady_passengers_onboard)
+proportion_mr_passengers = np.sum(mr_passengers_onboard)/np.size(mr_passengers_onboard)
+print('Female adult passengers on board: ', np.size(lady_passengers_onboard))
+print('Fale adult passengers on board: ', np.size(mr_passengers_onboard))
+print('Female adult passengers survived: ', np.sum(lady_passengers_onboard))
+print('Male adult passengers survived: ', np.sum(mr_passengers_onboard))
+print('Proportion of female adult survivors: ',round(proportion_lady_passengers,2))
+print('Proportion of male adult survivors: ',round(proportion_mr_passengers,2))
 
