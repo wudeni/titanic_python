@@ -10,12 +10,9 @@ data = []
 for row in csv_file_object:
 	data.append(row)
 data = np.array(data)
-#print (data[0,5].astype(np.float))
-
-
 #convert numerical data into int or float ..etc
 data[0::,2].astype(np.float)
-#data[0::,5].astype(np.float)
+#data[0::,5].astype(np.float) #there are null values, so this code gives an error
 
 
 print('----------------------------------------------')
