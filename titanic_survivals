@@ -84,3 +84,25 @@ print('Male adult passengers survived: ', np.sum(mr_passengers_onboard))
 print('Proportion of female adult survivors: ',round(proportion_lady_passengers,2))
 print('Proportion of male adult survivors: ',round(proportion_mr_passengers,2))
 
+print('----------------------------------------------')
+print('Survival by class')
+class1 = data[0::,2] == "1"
+class2 = data[0::,2] == "2"
+class3 = data[0::,2] == "3"
+class1_passengers = data[class1, 1].astype(np.float)
+class2_passengers = data[class2, 1].astype(np.float)
+class3_passengers = data[class3, 1].astype(np.float)
+print('Total passengers in Class 1: ', np.size(class1_passengers))
+print('Total survived in Class 1: ', np.sum(class1_passengers))
+print('Proportion of class 1 survivors: ', round(np.sum(class1_passengers)/np.size(class1_passengers),2))
+print('Total passengers in Class 2: ', np.size(class2_passengers))
+print('Total survived in Class 2: ', np.sum(class2_passengers))
+print('Proportion of class 2 survivors: ', round(np.sum(class2_passengers)/np.size(class2_passengers), 2))
+print('Total passengers in Class 3: ', np.size(class3_passengers))
+print('Total survived in Class 3: ', np.sum(class3_passengers))
+print('Proportion of class 3 survivors: ', round(np.sum(class3_passengers)/np.size(class3_passengers),2))
+
+
+
+
+
