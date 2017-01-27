@@ -12,6 +12,7 @@ for row in csv_file_object:
 data = np.array(data)
 #convert numerical data into int or float ..etc
 data[0::,2].astype(np.float)
+
 #data[0::,5].astype(np.float) #there are null values, so this code gives an error
 
 
@@ -102,6 +103,46 @@ print('Total passengers in Class 3: ', np.size(class3_passengers))
 print('Total survived in Class 3: ', np.sum(class3_passengers))
 print('Proportion of class 3 survivors: ', round(np.sum(class3_passengers)/np.size(class3_passengers),2))
 
+print('----------------------------------------------')
+print('Survival by sex and class')
+class1_female = women_passengers & class1 
+class1_male = men_passengers & class1
+class1_female_onboard = data[class1_female, 1].astype(np.float)
+class1_male_onboard = data[class1_male, 1].astype(np.float)
+proportion_class1_female = np.sum(class1_female_onboard)/np.size(class1_female_onboard)
+proportion_class1_male = np.sum(class1_male_onboard)/np.size(class1_male_onboard)
+print('Female passengers in Class 1: ', np.size(class1_female_onboard))
+print('Female survivors in Class 1: ', np.sum(class1_female_onboard))
+print('Proportion of Female survivors in Class 1: ', round(np.sum(class1_female_onboard)/np.size(class1_female_onboard), 2)) 
+print('Male passengers in Class 1: ', np.size(class1_male_onboard))
+print('Male survivors in Class 1: ', np.sum(class1_male_onboard))
+print('Proportion of male survivors in Class 1: ', round(np.sum(class1_male_onboard)/np.size(class1_male_onboard), 2)) 
+print('******')
+class2_female = women_passengers & class2 
+class2_male = men_passengers & class2
+class2_female_onboard = data[class2_female, 1].astype(np.float)
+class2_male_onboard = data[class2_male, 1].astype(np.float)
+proportion_class2_female = np.sum(class2_female_onboard)/np.size(class2_female_onboard)
+proportion_class2_male = np.sum(class2_male_onboard)/np.size(class2_male_onboard)
+print('Female passengers in Class 2: ', np.size(class2_female_onboard))
+print('Female survivors in Class 2: ', np.sum(class2_female_onboard))
+print('Proportion of Female survivors in Class 2: ', round(np.sum(class2_female_onboard)/np.size(class2_female_onboard), 2)) 
+print('Male passengers in Class 2: ', np.size(class2_male_onboard))
+print('Male survivors in Class 2: ', np.sum(class2_male_onboard))
+print('Proportion of male survivors in Class 2: ', round(np.sum(class2_male_onboard)/np.size(class2_male_onboard), 2))
+print('******')
+class3_female = women_passengers & class3 
+class3_male = men_passengers & class3
+class3_female_onboard = data[class3_female, 1].astype(np.float)
+class3_male_onboard = data[class3_male, 1].astype(np.float)
+proportion_class3_female = np.sum(class3_female_onboard)/np.size(class3_female_onboard)
+proportion_class3_male = np.sum(class3_male_onboard)/np.size(class3_male_onboard)
+print('Female passengers in Class 3: ', np.size(class3_female_onboard))
+print('Female survivors in Class 3: ', np.sum(class3_female_onboard))
+print('Proportion of Female survivors in Class 3: ', round(np.sum(class3_female_onboard)/np.size(class3_female_onboard), 2)) 
+print('Male passengers in Class 3: ', np.size(class3_male_onboard))
+print('Male survivors in Class 3: ', np.sum(class3_male_onboard))
+print('Proportion of male survivors in Class 3: ', round(np.sum(class3_male_onboard)/np.size(class3_male_onboard), 2))
 
 
 
