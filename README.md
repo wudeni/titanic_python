@@ -1,3 +1,2 @@
 # titanic_python
-##titanic_survival:
-is based on python dataframe, no cleaning data
+titanidata were tranfoered into a numpy and no cleaning data
