@@ -1,0 +1,95 @@
+fig1 = plt.figure(figsize=(18,6), dpi=1600)
+alpha=alpha_scatterplot = 0.2
+alpha_bar_chart = 0.55
+
+ax1=plt.subplot2grid((3,3),(0,0))
+df.Survived.value_counts().plot(kind='bar', alpha=alpha_bar_chart)
+ax1.set_xlim(-1,2)
+plt.grid(b=True)
+plt.title("Distribution of Survival, (1 = Survived)")
+
+ax2=plt.subplot2grid((3,3),(0,1),rowspan=2)
+plt.scatter(df.Survived, df.AgeFill, alpha=alpha_scatterplot)
+plt.ylabel("Age")
+plt.grid(b=True, which='Major', axis = 'y')
+plt.title("Survival by Age, (1=Survived)")
+
+ax3=plt.subplot2grid((3,3),(0,2))
+df.Pclass.value_counts().plot(kind='barh', alpha=alpha_bar_chart)
+ax3.set_ylim(-1,len(df.Pclass.value_counts()))
+plt.grid(b=True)
+plt.title("Class Distribution")
+
+ax3e=plt.subplot2grid((3,3),(1,0))
+df.Embark.value_counts().plot(kind='barh', alpha=alpha_bar_chart)
+ax3.set_ylim(-1,len(df.Embark.value_counts()))
+plt.grid(b=True)
+plt.title("Embarked Distribution")
+#plt.savefig('ax3e.jpg')
+
+ax4=plt.subplot2grid((3,3),(2,0), colspan=2)
+df.AgeFill[df.Pclass ==1].plot(kind='kde')
+df.AgeFill[df.Pclass ==2].plot(kind='kde')
+df.AgeFill[df.Pclass ==3].plot(kind='kde')
+plt.xlabel("Age")
+plt.title("Age distribution within classess")
+plt.legend(('1st Class', '2nd Class', '3rd Class'), loc='best')
+ax4.set_xlim(-5,90)
+
+
+fig2 = plt.figure(figsize=(18,6))
+
+df_male = df.Survived[df.Gender==1].value_counts().sort_index()
+df_female = df.Survived[df.Gender==0].value_counts().sort_index()
+
+ax1=fig2.add_subplot(121)
+df_male.plot(kind='barh', color = 'blue', label = 'Male', alpha=0.55)
+df_female.plot(kind='barh', color = 'red', label = 'female', alpha=0.55)
+plt.title("Who Survived? with respect to Gender, (raw value counts) "); plt.legend(loc='best')
+ax1.set_ylim(-1, 2) 
+
+ax1=fig2.add_subplot(122)
+(df_male/float(df_male.sum())).plot(kind='barh', color = 'blue', label = 'Male', alpha=0.55)
+(df_female/float(df_female.sum())).plot(kind='barh', color = 'red', label = 'female', alpha=0.55)
+plt.title("Who Survived proportionally? with respect to Gender"); plt.legend(loc='best')
+ax1.set_ylim(-1, 2) 
+
+
+
+
+fig3 = plt.figure(figsize=(18,4), dpi=1600)
+alpha_level = 0.65
+
+female_highclass =df.Survived[df.Gender == 0][df.Pclass!=3].value_counts().sort_index()
+male_highclass =df.Survived[df.Gender == 1][df.Pclass!=3].value_counts().sort_index()
+female_lowclass =df.Survived[df.Gender == 0][df.Pclass==3].value_counts().sort_index()
+male_lowclass =df.Survived[df.Gender == 1][df.Pclass==3].value_counts().sort_index()
+
+ax1=fig3.add_subplot(141)
+female_highclass.plot(kind='bar', color = 'r', label = 'Female, Highclass', alpha=0.55)
+ax1.set_xticklabels(["Died", "Survived"], rotation=0)
+ax1.set_xlim(-1, len(female_highclass))
+plt.title("Who Survived? with respect to Gender and Class"); plt.legend(loc='best')
+ax1.set_ylim(-1, 350)
+plt.legend(loc='best')
+
+ax2=fig3.add_subplot(142)
+male_highclass.plot(kind='bar', color = 'b', label = 'Male, Highclass', alpha=0.55)
+ax2.set_xticklabels(["Died", "Survived"], rotation=0)
+ax2.set_xlim(-1, len(male_highclass))
+ax2.set_ylim(-1, 350)
+plt.legend(loc='best')
+
+ax3=fig3.add_subplot(143)
+female_lowclass.plot(kind='bar', color = 'r', label = 'Female, Lowclass', alpha=0.55)
+ax3.set_xticklabels(["Died", "Survived"], rotation=0)
+ax3.set_xlim(-1, len(female_lowclass))
+ax3.set_ylim(-1, 350)
+plt.legend(loc='best')
+
+ax4=fig3.add_subplot(144)
+male_lowclass.plot(kind='bar', color = 'b', label = 'Male, lowclass', alpha=0.55)
+ax4.set_xticklabels(["Died", "Survived"], rotation=0)
+ax4.set_xlim(-1, len(male_lowclass))
+ax4.set_ylim(-1, 350)
+plt.legend(loc='best')
