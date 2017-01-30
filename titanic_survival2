@@ -36,4 +36,84 @@ df['AgeFill'] = df['Age']
 for i in range(0,2):
     for j in range(0,3):
         df.loc[(df.Age.isnull()) & (df.Gender == i) & (df.Pclass == j+1), 'AgeFill']=median_ages[i,j]
+df['AgeIsNull'] = pd.isnull(df.Age).astype(int)
+df.dtypes[df.dtypes.map(lambda x: x=='float')]
+df.dtypes[df.dtypes.map(lambda x: x=='object')]
+df=df.drop(['Age'], axis =1)
+df=df.drop(['Name', 'Sex', 'Ticket', 'Cabin', 'Embarked', 'Gender1', 'AgeIsNull'], axis =1)
+
+
+train_data = df.values
+child_passengers = train_data[0::,8] < 18
+adult_passengers = train_data[0::,8] >= 18
+child_onboard = train_data[child_passengers, 1].astype(np.float)
+adult_onboard = train_data[adult_passengers, 1].astype(np.float)
+proportion_adult_survivors = np.sum(adult_onboard)/np.size(adult_onboard)
+proportion_child_survivors = np.sum(child_onboard)/np.size(child_onboard)
+print('Adult onboard: ', np.size(adult_onboard))
+print('Child onboard: ', np.size(child_onboard))
+print('Adult survived: ', np.sum(adult_onboard))
+print('Child survived: ', np.sum(child_onboard))
+print('Proportion of adult survivors: ', round(proportion_adult_survivors, 2))
+print('Proportion of child survivors: ', round(proportion_child_survivors, 2))
+
+
+
+for i in range(0,2):
+    x=len(df[(df.Gender==i)])
+    y=len(df[(df.Gender==i) & (df.Survived ==1)])
+    if i==0:
+        print('Female onboard: ', x)
+        print('female survivors:', y)
+        print('Proportion of female survivors are:', round((y/x), 2))
+    else:
+        print('Male onboard: ', x)
+        print('Male survivors:', y)
+        print('Proportion of male survivors are:', round((y/x), 2))
+    
+
+for i in range(1,4):
+    x=len(df[(df.Pclass ==i)])
+    y=len(df[(df.Pclass ==i) & (df.Survived == 1)])
+    print('Class', i, 'on board: ', x )
+    print('Class', i, 'survivors: ', y )
+    print('Proportion of survivors pclass', i,': ', (y/x),'\n')
+
+
+print('Counting men in each class')
+for i in range(1,4):
+    print ('Class ', i,'on board: ', len(df[(df.Gender == 1) & (df.Pclass == i)]))
+    print ('Class ', i,'survivors: ', len(df[(df.Gender == 1) & (df.Pclass == i) & (df.Survived == 1)]))
+    proportion_male_survivors = round((len(df[(df.Gender == 1) & (df.Pclass == i) & (df.Survived == 1)]))/(len(df[(df.Gender == 1) & (df.Pclass == i)])), 2)
+    print('Proportion of male survivors ', 'class ', i, ': ', proportion_male_survivors)
+
+
+print('Counting females in each class')
+for i in range(1,4):
+    print ('Class ', i,': ', len(df[(df.Gender == 0) & (df.Pclass == i)]))
+    print ('Class ', i,': ', len(df[(df.Gender == 0) & (df.Pclass == i) & (df.Survived == 1)]))
+    proportion_female_survivors = round((len(df[(df.Gender == 0) & (df.Pclass == i) & (df.Survived == 1)]))/(len(df[(df.Gender == 0) & (df.Pclass == i)])), 2)
+    print('Proportion of female survivors ', 'class ', i, ': ', proportion_female_survivors)
+
+print('Counting females in each class & each embark')
+for i in range(1,4):
+    for j in range(1,4):
+        x = len(df[(df.Gender == 0) & (df.Pclass == i) & (df.Embark == j)])
+        y = len(df[(df.Gender == 0) & (df.Pclass == i) & (df.Embark == j) & (df.Survived == 1)])
+        print ('Class ', i,'Embarked',j, 'on board: ', x)
+        print ('Class ', i,'Embarked', j, 'survivors: ', y)
+        proportion_female_survivors = round((y/x), 2)
+        print('Proportion of female survivors ', 'class ', i, 'embarked', j, ':', proportion_female_survivors)
+
+print('Counting males in each class & each embark')
+for i in range(1,4):
+    for j in range(1,4):
+        x = len(df[(df.Gender == 1) & (df.Pclass == i) & (df.Embark == j)])
+        y = len(df[(df.Gender == 1) & (df.Pclass == i) & (df.Embark == j) & (df.Survived == 1)])
+        print ('Class ', i,'Embarked',j, 'on board: ', x)
+        print ('Class ', i,'Embarked', j, 'survivors: ', y)
+        proportion_male_survivors = round((y/x), 2)
+        print('Proportion of male survivors ', 'class ', i, 'embarked', j, ':', proportion_male_survivors)
+
+
 
